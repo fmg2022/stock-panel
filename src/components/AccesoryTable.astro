@@ -1,0 +1,31 @@
+---
+import AccesoryRow from "./AccesoryRow.astro";
+import { accesories } from "../lib/data";
+---
+
+<div class="px-4 flex justify-center items-center">
+  <table
+    class="min-w-full bg-zinc-100 shadow-md rounded-md table-fixed divide-y-2"
+  >
+    <thead class="bg-slate-50">
+      <tr class="text-gray-700">
+        <th class="py-3 px-4 text-left">#</th>
+        <th class="py-3 px-4 text-left">Nombre</th>
+        <th class="py-3 px-4 text-left">Tipo</th>
+        <th class="py-3 px-4 text-left">Categorías</th>
+        <th class="py-3 px-4 text-left">Tamaño</th>
+        <th class="py-3 px-4 text-left">Cantidad</th>
+        <th class="py-3 px-4 text-center">Estado</th>
+        <th class="py-3 px-4 text-center">Imagen</th>
+        <th class="py-3 px-4 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="text-slate-800 divide-y">
+      {
+        accesories.map((accesoryItem, index) => (
+          <AccesoryRow accesory={accesoryItem} index={index + 1} />
+        ))
+      }
+    </tbody>
+  </table>
+</div>

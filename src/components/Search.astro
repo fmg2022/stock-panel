@@ -1,0 +1,12 @@
+---
+import { FormSearch } from "./FormSearch";
+import { Icon } from "astro-icon/components";
+---
+
+<div class="relative flex items-center">
+  <span class="absolute left-3">
+    <Icon name="search" class="w-5 h-5 mx-3 text-gray-400" />
+  </span>
+
+  <FormSearch client:only="react" />
+</div>
