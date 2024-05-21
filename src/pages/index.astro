@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AccesoryTable from "../components/AccesoryTable.astro";
+import { AccesoryTable } from "../components/AccesoryTable";
 import SearchBar from "../components/SearchBar.astro";
 ---
 
 <Layout title="Control de Stock">
 	<main>
 		<SearchBar />
-		<AccesoryTable />
+		<AccesoryTable client:only="react" />
 	</main>
 </Layout>
 
