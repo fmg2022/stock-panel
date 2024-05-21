@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import { typesAccesory, accesories, type Accesory } from "../lib/data";
+import { useDebounce } from "@uidotdev/usehooks";
+import { currentData } from "../store/stockStore";
 
 const typesList = Object.values(typesAccesory);
+const DEBOUNCE_TIME = 300
 
 export const FormSearch = () => {
   const [search, setSearch] = useState<string>(() => {
@@ -9,7 +12,8 @@ export const FormSearch = () => {
     return searchParams.get('q') ?? ''
   })
   const [filterParam, setFilterParam] = useState("all")
-  const [currentaData, setCurrentaData] = useState<Array<Accesory>>(accesories)
+
+  const debounceSeach = useDebounce(search, DEBOUNCE_TIME)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
@@ -22,33 +26,26 @@ export const FormSearch = () => {
   // actualizar el link del navegador
   useEffect(() => {
     // Mejorable
-    const searchPath = `${search ?? ''}`
-      
-    const filterPath = filterParam === 'all'
-      ? ''
-      : `&f=${filterParam}`
-
-    const newPathName = searchPath || filterPath ? `?q=${searchPath}${filterPath}` : window.location.pathname
+    const newPathName = debounceSeach !== '' ? `?q=${debounceSeach}` : window.location.pathname
 
     window.history.replaceState({}, '', newPathName)
 
     // LLamar a la api para filtrar los resultados
-    if (!search && !filterParam){
-      setCurrentaData(accesories)
+    if (!debounceSeach){
+      currentData.set(accesories)
       return
     }
 
-    fetch(`/api/get-info-accesory.json?q=${search}&f=${filterParam}`)
+    fetch(`/api/get-info-accesory.json?q=${debounceSeach}&f=${filterParam}`)
       .then(res => res.json())
       .then(data => {
         const { accesoriesFilter } = data
-        setCurrentaData(accesoriesFilter)
+        currentData.set(accesoriesFilter)
       })
-  }, [search, filterParam])
+  }, [debounceSeach, filterParam])
 
   const classSelect = "bg-slate-300/20 text-zinc-800 checked:text-gray-800 checked:bg-slate-300/60"
 
-  console.log(currentaData)
   return (
     <form className="flex p-3 justify-center gap-2">
       <input

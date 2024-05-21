@@ -19,7 +19,9 @@ export interface Accesory {
   isDeleted: boolean
 }
 
-export const accesories: Accesory[] = [
+export type Accesories = Array<Accesory>
+
+export const accesories: Accesories = [
   {
     id: '1',
     nombre: 'codo',

@@ -1,6 +1,7 @@
 ---
-import AccesoryRow from "./AccesoryRow.astro";
-import { accesories } from "../lib/data";
+// import AccesoryRow from "./AccesoryRow.astro";
+// import { accesories } from "../lib/data";
+import { TableBody } from "./TableBody";
 ---
 
 <div class="px-4 flex justify-center items-center">
@@ -20,12 +21,25 @@ import { accesories } from "../lib/data";
         <th class="py-3 px-4 text-center">Acciones</th>
       </tr>
     </thead>
-    <tbody class="text-slate-800 divide-y">
-      {
-        accesories.map((accesoryItem, index) => (
-          <AccesoryRow accesory={accesoryItem} index={index + 1} />
-        ))
-      }
-    </tbody>
+    <!-- hacer .jsx este archivo, sino no funciona correctamente -->
+    <TableBody client:only="react" classNameTB="text-slate-800 divide-y" />
   </table>
 </div>
+
+<!-- <tbody class="text-slate-800 divide-y">
+  {
+    accesories.map((accesoryItem, index) => (
+      <AccesoryRow accesory={accesoryItem} index={index + 1} />
+    ))
+  }
+</tbody> -->
+<!-- <script>
+  import { currentData } from "../store/stockStore";
+  import AccesoryRow from "./AccesoryRow.astro";
+
+  const $tbody = document.getElementById("accTableBody");
+  const ACCESORIES = currentData.get();
+
+  console.log("En AccesoryTable.astro ---------", currentData);
+  // AccesoryRow({ accesory: ACCESORIES[0], index: 0 }).;
+</script> -->
