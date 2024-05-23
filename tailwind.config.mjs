@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
+import { transform } from 'typescript'
 
 /** @type {import('tailwindcss').Config} */
 export default {

@@ -1,0 +1,23 @@
+---
+import { typesAccesory } from "../lib/data";
+
+const typesList = Object.values(typesAccesory);
+
+const classSelect =
+  "bg-slate-300/20 text-zinc-800 checked:text-gray-800 checked:bg-slate-300/60";
+---
+
+<!-- <label htmlFor="select"></label> -->
+<select
+  id="select"
+  class="bg-zinc-50 border border-slate-300 text-gray-900 rounded-lg focus:ring focus:ring-opacity-40 focus:ring-blue-300 focus:border-blue-400 focus:outline-none p-2.5"
+>
+  <option value="all" class={classSelect}>Todos</option>
+  {
+    typesList.map((tipo, index) => (
+      <option value={tipo} class={classSelect}>
+        {tipo.replace(/^./, (char) => char.toUpperCase())}
+      </option>
+    ))
+  }
+</select>

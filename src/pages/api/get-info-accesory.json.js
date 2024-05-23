@@ -8,9 +8,7 @@ export async function GET({ params, request }) {
   const urlObject = new URL(url)
   const query = urlObject.searchParams.get('q')
   const accesoriesFilter = accesories.filter((accesory) => accesory.nombre.includes(query))
-  // https://www.youtube.com/watch?v=wSxIwy6GvT4
-  console.log(url, query)
-
+  
   return new Response(JSON.stringify({accesoriesFilter}), {
     headers: { "content-type": "application/json" }
   })
