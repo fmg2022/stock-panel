@@ -1,10 +1,11 @@
 import { useStore } from "@nanostores/react"
-import { currentData } from "../store/stockStore"
+import { currentData, currentFilter } from "../store/stockStore"
 import { AccesoryRow } from "./AccesoryRow"
 
 export const AccesoryTable = () => {
   const accesories = useStore(currentData)
-
+  const filterOPtion = useStore(currentFilter)
+  
   return (
     <div className="px-4 flex justify-center items-center">
       <table
@@ -25,9 +26,11 @@ export const AccesoryTable = () => {
         </thead>
         <tbody className="text-slate-800 divide-y">
           {
-            accesories.map((accesory, index) => (
-              <AccesoryRow key={accesory.id} accesory={accesory} index={index + 1} />
-            ))
+            accesories.map((accesory, index) => 
+              accesory.tipo === filterOPtion || filterOPtion === ''
+                ? <AccesoryRow key={accesory.id} accesory={accesory} index={index + 1} />
+                : null
+            )
           }
         </tbody>
       </table>
