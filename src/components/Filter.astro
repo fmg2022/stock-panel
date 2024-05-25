@@ -27,13 +27,14 @@ const classSelect =
 
   const $select = document.getElementById("selectOp");
 
-  const selectOption = () => {
-    console.log("aqui?");
-    // currentFilter.set($select.value);
-  };
+  // const selectOption = () => {
+  //   console.log("aqui?");
+  //   // currentFilter.set($select.value);
+  // };
 
   $select?.addEventListener("change", (event) => {
-    const selectedOption = event?.target?.value;
+    const { target } = event;
+    const selectedOption = (target as HTMLSelectElement).value;
     currentFilter.set(selectedOption);
   });
 </script>
